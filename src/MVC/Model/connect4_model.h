@@ -19,8 +19,8 @@ namespace connect4::model {
 		std::bitset<47> player2;
 		short turnCount = 0;
 
-		short getActivePlayer();
-		bool colAvailable(short col);
+		short getActivePlayer() const;
+		bool colAvailable(short col) const;
 
 		std::array<std::array<short, 7>, 6> getBoardGrid() const;
 		void addPiece(short);

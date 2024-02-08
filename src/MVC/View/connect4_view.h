@@ -4,11 +4,8 @@
 
 
 
-#include <bitset>
-#include <array>
-
-using std::bitset;
-using std::array;
+#include "../Model/connect4_model.h"
+#include <string>
 
 
 

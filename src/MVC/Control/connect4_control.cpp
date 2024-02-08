@@ -6,7 +6,7 @@
 #include "connect4_control.h"
 #include "../Model/connect4_model.h"
 #include "../View/connect4_view.h"
-#include "../../AI/connect4_ai.h"
+#include "../../AI/connect4_ai_searchtree_algorithms.h"
 #include <iostream>
 #include <string>
 
@@ -53,7 +53,6 @@ namespace connect4 {
 		short ai = 0;
 		
 		while (std::cin && userAction != UserAction::exitGame) {
-
 			model::Board board;
 			short winner = 0;
 			string message = HELP_MESSAGE;
@@ -113,9 +112,8 @@ namespace connect4 {
 					}
 				}
 				else {
-					short move = ai::generateMove(board);
+					short move = ai::minimax(board, ai, 5).moveIndex;
 					board.addPiece(move);
-					message = "AI move complete.";
 				}
 
 				winner = board.checkForWin();

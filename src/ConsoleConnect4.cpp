@@ -3,7 +3,7 @@
 
 
 
-#include "./MVC/Control/connect4_control.h"
+#include "MVC/Control/connect4_control.h"
 
 
 

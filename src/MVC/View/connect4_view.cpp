@@ -3,6 +3,7 @@
 
 
 
+#include "connect4_view.h"
 #include "../Model/connect4_model.h"
 #include <iostream>
 #include <string>
@@ -13,6 +14,7 @@ using std::cout;
 using std::getline;
 using std::string;
 using std::array;
+
 
 
 namespace {

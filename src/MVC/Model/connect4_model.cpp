@@ -14,11 +14,11 @@ using std::array;
 
 namespace connect4::model {
 
-	short Board::getActivePlayer() {
+	short Board::getActivePlayer() const {
 		return turnCount % 2 + 1;
 	}
 
-	bool Board::colAvailable(short col) {
+	bool Board::colAvailable(short col) const {
 		if (col < 0 || col > 6) return false;
 		return player1[40 + col] == 0 && player2[40 + col] == 0;
 	}
@@ -59,18 +59,18 @@ namespace connect4::model {
 	}
 
 	short Board::checkForWin() const {
-		if ((player1 & (player1 >> 1) & (player1 >> 2) & (player1 >> 3)).any() || // horizontal match
-			(player1 & (player1 >> 8) & (player1 >> 16) & (player1 >> 24)).any() || // vertical match
-			(player1 & (player1 >> 9) & (player1 >> 18) & (player1 >> 27)).any() || // diagonalmatch
-			(player1 & (player1 >> 7) & (player1 >> 14) & (player1 >> 21)).any()) // antidiagonal match
+		if ((player1 & (player1 << 1) & (player1 << 2) & (player1 << 3)).any() || // horizontal match
+			(player1 & (player1 << 8) & (player1 << 16) & (player1 << 24)).any() || // vertical match
+			(player1 & (player1 << 9) & (player1 << 18) & (player1 << 27)).any() || // diagonalmatch
+			(player1 & (player1 << 7) & (player1 << 14) & (player1 << 21)).any()) // antidiagonal match
 		{
 			return 1;
 		}
 
-		if ((player2 & (player2 >> 1) & (player2 >> 2) & (player2 >> 3)).any() || // horizontal match
-			(player2 & (player2 >> 8) & (player2 >> 16) & (player2 >> 24)).any() || // vertical match
-			(player2 & (player2 >> 9) & (player2 >> 18) & (player2 >> 27)).any() || // diagonal match
-			(player2 & (player2 >> 7) & (player2 >> 14) & (player2 >> 21)).any()) // antidiagonalmatch
+		if ((player2 & (player2 << 1) & (player2 << 2) & (player2 << 3)).any() || // horizontal match
+			(player2 & (player2 << 8) & (player2 << 16) & (player2 << 24)).any() || // vertical match
+			(player2 & (player2 << 9) & (player2 << 18) & (player2 << 27)).any() || // diagonal match
+			(player2 & (player2 << 7) & (player2 << 14) & (player2 << 21)).any()) // antidiagonalmatch
 		{
 			return 2;
 		}
