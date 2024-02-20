@@ -3,9 +3,9 @@
 
 
 
-#include "connect4_ai_searchtree_algorithms.h"
+#include "connect4_ai_adversarial_search_algorithms.h"
 #include "Evaluation/connect4_ai_evaluation.h"
-#include "../MVC/Model/connect4_model.h"
+#include "../../MVC/Model/connect4_model.h"
 #include <future>
 #include <optional>
 

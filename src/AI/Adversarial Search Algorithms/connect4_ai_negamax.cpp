@@ -3,9 +3,9 @@
 
 
 
-#include "connect4_ai_searchtree_algorithms.h"
+#include "connect4_ai_adversarial_search_algorithms.h"
 #include "Evaluation/connect4_ai_evaluation.h"
-#include "../MVC/Model/connect4_model.h"
+#include "../../MVC/Model/connect4_model.h"
 #include <future>
 #include <optional>
 
@@ -24,7 +24,7 @@ namespace connect4::ai {
         if (winner == maximizingPlayer) return { -1, DBL_MAX };
         if (winner == 1 || winner == 2) return { -1, -DBL_MAX };
         if (winner == -1) return { -1, 0 }; // tie
-        if (depth <= 0) return { -1, evaluate(board, maximizingPlayer) };
+        if (depth <= 0) return { -1, evaluate(board, maximizingPlayer) }; // TODO: evaluate(board, board.getActivePlayer())
 
         ai::MinimaxResult bestResult = { -1, -DBL_MAX };
 

@@ -1,10 +1,10 @@
-// connect4_ai_searchtree_algorithms.h
+// connect4_ai_adversarial_search_algorithms.h
 // by Jake Charles Osborne III
 #pragma once
 
 
 
-#include "../MVC/Model/connect4_model.h"
+#include "../../MVC/Model/connect4_model.h"
 
 
 

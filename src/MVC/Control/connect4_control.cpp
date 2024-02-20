@@ -6,7 +6,7 @@
 #include "connect4_control.h"
 #include "../Model/connect4_model.h"
 #include "../View/connect4_view.h"
-#include "../../AI/connect4_ai_searchtree_algorithms.h"
+#include "../../AI/Adversarial Search Algorithms/connect4_ai_adversarial_search_algorithms.h"
 #include <iostream>
 #include <string>
 

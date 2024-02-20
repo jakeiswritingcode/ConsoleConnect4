@@ -4,7 +4,7 @@
 
 
 
-#include "../../MVC/Model/connect4_model.h"
+#include "../../../MVC/Model/connect4_model.h"
 
 
 
