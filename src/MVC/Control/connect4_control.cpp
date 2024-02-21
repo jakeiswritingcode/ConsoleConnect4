@@ -6,7 +6,7 @@
 #include "connect4_control.h"
 #include "../Model/connect4_model.h"
 #include "../View/connect4_view.h"
-#include "../../AI/Adversarial Search Algorithms/connect4_ai_adversarial_search_algorithms.h"
+#include "../../AI/Tree Traversal/Adversarial Search Algorithms/adversarial_search_algorithms.h"
 #include <iostream>
 #include <string>
 
@@ -112,8 +112,8 @@ namespace connect4 {
 					}
 				}
 				else {
-					short move = ai::minimax(board, ai, 5).moveIndex;
-					board.addPiece(move);
+					auto move = ai::minimax(board, 5);
+					board.useAction(move);
 				}
 
 				winner = board.checkForWin();

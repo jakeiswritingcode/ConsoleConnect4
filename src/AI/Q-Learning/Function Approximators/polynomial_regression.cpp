@@ -1,10 +1,10 @@
-// connect4_ai_polynomial_regression.cpp
+// polynomial_regression.cpp
 // by Jake Charles Osborne III
 
 
 
+#include "function_approximators.h"
 #include <vector>
-#include "connect4_ai_function_approximators.h"
 #include <stdexcept>
 
 using std::vector;
@@ -26,7 +26,7 @@ namespace {
 
 }
 
-namespace connect4::ai {
+namespace ai {
 
     float PolynomialRegression::predict(const vector<float>& features) const {
         validateFeaturesSize(features, weights);
@@ -58,7 +58,6 @@ namespace connect4::ai {
         return value;
     }
 
-    // Update the weights based on the error (target - predicted)
     void PolynomialRegression::updateWeights(const vector<float>& features, float target, float learningRate) {
         validateFeaturesSize(features, weights);
 
@@ -67,24 +66,24 @@ namespace connect4::ai {
 
         int weightIndex = 0;
 
-        // Update weights for linear terms
+        // linear terms
         for (int i = 0; i < features.size(); ++i) {
             weights[weightIndex++] += learningRate * error * features[i];
         }
 
-        // Update weights for squared terms
+        // squared terms
         for (int i = 0; i < features.size(); ++i) {
             weights[weightIndex++] += learningRate * error * features[i] * features[i];
         }
 
-        // Update weights for interaction terms
+        // interaction terms
         for (int i = 0; i < features.size(); ++i) {
             for (int j = i + 1; j < features.size(); ++j) {
                 weights[weightIndex++] += learningRate * error * features[i] * features[j];
             }
         }
 
-        // Update bias weight
+        // bias weight
         weights[weightIndex++] += learningRate * error;
     }
 

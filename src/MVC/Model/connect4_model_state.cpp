@@ -1,11 +1,15 @@
+// connect4_model_state.cpp
+// by Jake Charles Osborne III
 
 
 
 #include "connect4_model.h"
+#include <memory>
+#include <vector>
 #include <stdexcept>
 
-using std::vector;
 using std::shared_ptr;
+using std::vector;
 
 
 
@@ -28,12 +32,14 @@ namespace connect4::model {
 		return actions;
 	}
 
-	void Board::useAction(shared_ptr<ai::Action> actionPtr) {
+	double Board::useAction(shared_ptr<ai::Action> actionPtr) {
 		Move* movePtr = dynamic_cast<Move*>(actionPtr.get());
 		if (!movePtr) throw std::logic_error("invalid ai::Action passed as an argument");
 		Move move = *movePtr;
 
 		addPiece(move.col);
+
+		return 0.0; // TODO: calculate reward
 	}
 
 	bool Board::isTerminal() const {

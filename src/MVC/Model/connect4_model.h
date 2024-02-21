@@ -4,7 +4,8 @@
 
 
 
-#include "../../AI/Q-Learning/state_action_interface.h"
+#include "../../AI/Tree Traversal/asastate.h"
+#include "../../AI/Q-Learning/qlstate.h"
 #include <bitset>
 #include <array>
 
@@ -17,7 +18,7 @@ namespace connect4::model {
 		Move(int x) : col(x) {}
 	};
 
-	class Board : public ai::State{
+	class Board : public ai::ASAState, public ai::QLState {
 	public:
 		// each board is stored as a 6x7 bitset with an 8th column on the right edge
 		// to prevent wraping when bitshifting the values to detect matches and
@@ -26,7 +27,6 @@ namespace connect4::model {
 		std::bitset<47> player2;
 		short turnCount = 0;
 
-		Board(const Board& board) : player1(board.player1), player2(board.player2), turnCount(board.turnCount) {}
 		std::array<std::array<short, 7>, 6> getBoardGrid() const;
 		bool colAvailable(short col) const;
 		void addPiece(short);
@@ -37,8 +37,15 @@ namespace connect4::model {
 		// State Methods
 		std::shared_ptr<ai::State> clone() const override;
 		std::vector<std::shared_ptr<ai::Action>> getActions() const override;
-		void useAction(std::shared_ptr<ai::Action>) override;
+		double useAction(std::shared_ptr<ai::Action>) override;
 		bool isTerminal() const override;
+
+		// ASAState Methods
+		short getActivePlayerId() const override;
+		double evaluate(short maximizingPlayerId) const override;
+
+		// QLState Methods
+		std::vector<float> extractFeatures() const override;
 	};
 
 }

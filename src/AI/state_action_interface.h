@@ -1,7 +1,15 @@
+// state_action_interface.h
+// by Jake Chareles Osborne III
+#pragma once
+
+
+
 #include <vector>
 #include <memory>
 
-namespace connect4::ai {
+
+
+namespace ai {
 
 	struct Action {
 		// pure virtual destructor to allow dynamic casting
@@ -13,7 +21,7 @@ namespace connect4::ai {
 		virtual std::shared_ptr<State> clone() const = 0;
 		virtual std::vector<float> extractFeatures() const = 0;
 		virtual std::vector<std::shared_ptr<Action>> getActions() const = 0;
-		virtual void useAction(std::shared_ptr<Action>) = 0;
+		virtual double useAction(std::shared_ptr<Action>) = 0; // returns reward
 		virtual bool isTerminal() const = 0;
 
 		virtual ~State() {}

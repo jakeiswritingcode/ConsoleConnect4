@@ -24,7 +24,7 @@ namespace {
 
 namespace ai {
 
-    shared_ptr<Action> getEpsilonGreedyAction(const State& state, const RegressionModel& model, float epsilon) {
+    shared_ptr<Action> getEpsilonGreedyAction(const QLState& state, const RegressionModel& model, float epsilon) {
         vector<shared_ptr<Action>> actions = state.getActions();
         if (actions.empty()) throw std::logic_error("State with no available Actions passed as argument to selection algorithm");
 
@@ -42,7 +42,7 @@ namespace ai {
         shared_ptr<Action> bestAction;
 
         for (auto& action : actions) {
-            shared_ptr<State> newState = state.clone();
+            shared_ptr<QLState> newState = state.cloneQLState();
             newState->useAction(action);
             float value = model.predict(newState->extractFeatures());
 

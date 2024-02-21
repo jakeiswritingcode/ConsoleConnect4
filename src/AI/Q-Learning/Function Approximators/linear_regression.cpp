@@ -1,9 +1,9 @@
-// connect4_ai_linear_regression.cpp
+// linear_regression.cpp
 // by Jake Charles Osborne III
 
 
 
-#include "connect4_ai_function_approximators.h"
+#include "function_approximators.h"
 #include <vector>
 #include <stdexcept>
 
@@ -11,7 +11,7 @@ using std::vector;
 
 
 
-namespace connect4::ai {
+namespace ai {
 
     float LinearRegression::predict(const vector<float>& features) const {
         float value = 0;

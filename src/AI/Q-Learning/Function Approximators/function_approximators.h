@@ -1,4 +1,4 @@
-// connect4_ai_linear_regression.h
+// linear_regression.h
 // by Jake Charles Osborne III
 #pragma once
 
@@ -8,7 +8,7 @@
 
 
 
-namespace connect4::ai {
+namespace ai {
 
     class RegressionModel {
     protected:
