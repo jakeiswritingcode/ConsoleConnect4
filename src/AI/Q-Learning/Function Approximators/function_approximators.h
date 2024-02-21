@@ -15,7 +15,7 @@ namespace ai {
         std::vector<float> weights;
 
     public:
-        virtual void updateWeights(const std::vector<float>& features, float target, float learningRate) = 0;
+        virtual void updateWeights(const std::vector<float>& features, float learningRate, float tdTarget) = 0;
         virtual float predict(const std::vector<float>& features) const = 0;
     };
 
@@ -27,7 +27,7 @@ namespace ai {
 
         float predict(const std::vector<float>& features) const override;
 
-        void updateWeights(const std::vector<float>& features, float target, float learningRate) override;
+        void updateWeights(const std::vector<float>& features, float learningRate, float tdTarget) override;
     };
 
     class PolynomialRegression : public RegressionModel {
@@ -44,7 +44,7 @@ namespace ai {
 
         float predict(const std::vector<float>& features) const override;
 
-        void updateWeights(const std::vector<float>& features, float target, float learningRate) override;
+        void updateWeights(const std::vector<float>& features, float learningRate, float tdTarget) override;
     };
 
 }

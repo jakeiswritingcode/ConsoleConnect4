@@ -7,7 +7,9 @@
 #include "qlstate.h"
 #include "Function Approximators/function_approximators.h"
 #include "Action Selection/action_selection_algorithms.h"
+#include <vector>
 #include <memory>
+#include <alg.h>
 
 using std::shared_ptr;
 
@@ -17,28 +19,29 @@ namespace ai {
 
     void trainModel(QLState& initialState, RegressionModel& model, int episodes, float epsilon, float learningRate, float discountFactor) {
         for (int e = 0; e < episodes; ++e) {
-            shared_ptr<QLState> state = state->cloneQLState();
+            shared_ptr<QLState> state = initialState.cloneQLState();
             while (!state->isTerminal()) {
-                shared_ptr<Action> action = getEpsilonGreedyAction(*state, model, epsilon);
-                shared_ptr<QLState> oldState = state->cloneQLState();
-                double reward = state->useAction(action);
+                std::vector<float> features = state->extractFeatures();
+                float qVal = model.predict(features);
 
-                // Update
-                float qOld = model.predict(oldState->extractFeatures());
-                float qNewMax = -FLT_MAX;
-                for (auto& action : state->getActions()) {
-                    shared_ptr<QLState> newState = state->cloneQLState();
-                    newState->useAction(action);
-                    float qValue = model.predict(newState->extractFeatures());
-                    if (qValue > qNewMax) {
-                        qNewMax = qValue;
+                double reward = state->useAction(
+                    getEpsilonGreedyAction(*state, model, epsilon));
+
+                float nextQMax = 0;
+                if (!state->isTerminal()) {
+                    nextQMax = -FLT_MAX;
+                    for (auto& action : state->getActions()) {
+                        shared_ptr<QLState> newState = state->cloneQLState();
+                        newState->useAction(action);
+                        float nextQ = model.predict(newState->extractFeatures());
+                        if (nextQ > nextQMax) {
+                            nextQMax = nextQ;
+                        }
                     }
                 }
 
-                // TODO: Double check the functionality in this method
-
-                float qTarget = reward + discountFactor * qNewMax;
-                model.updateWeights(oldState->extractFeatures(), qTarget, learningRate);
+                float tdTarget = reward + discountFactor * nextQMax;
+                model.updateWeights(features, learningRate, tdTarget);
             }
         }
     }
