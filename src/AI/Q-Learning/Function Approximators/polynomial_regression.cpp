@@ -20,7 +20,7 @@ namespace {
             1 != // bias
             weights.size())
         {
-            throw std::logic_error("incorrect number of features provided to PolynomialRegression instance");
+            throw std::logic_error("std::vector<float> of invalid size passed as features argument");
         }
     }
 
@@ -84,7 +84,7 @@ namespace ai {
         }
 
         // bias weight
-        weights[weightIndex++] += learningRate * tdError;
+        weights[weightIndex] += learningRate * tdError;
     }
 
 }

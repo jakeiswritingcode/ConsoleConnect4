@@ -5,9 +5,8 @@
 
 
 #include "qlstate.h"
-#include "Action Selection/action_selection_algorithms.h"
+#include "Policies/policies.h"
 #include "Function Approximators/function_approximators.h"
-
 
 
 

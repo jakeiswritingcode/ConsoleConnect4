@@ -3,7 +3,6 @@
 
 
 
-
 #include "connect4_model_evaluation.h"
 #include <bitset>
 

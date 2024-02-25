@@ -12,7 +12,7 @@
 
 namespace ai {
 
-	class QLState : virtual public State {
+	class QLState : public virtual State {
 	public:
 		std::shared_ptr<QLState> cloneQLState() const {
 			return std::dynamic_pointer_cast<QLState>(clone());

@@ -6,10 +6,9 @@
 #include "q_learning.h"
 #include "qlstate.h"
 #include "Function Approximators/function_approximators.h"
-#include "Action Selection/action_selection_algorithms.h"
+#include "Policies/policies.h"
 #include <vector>
 #include <memory>
-#include <alg.h>
 
 using std::shared_ptr;
 
