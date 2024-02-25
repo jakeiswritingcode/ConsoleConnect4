@@ -52,14 +52,14 @@ namespace ai {
                 float qVal = model.predict(features);
 
                 shared_ptr<Action> action = ::selectAction(*state, model, policy, policyModifier);
-                double reward = state->useAction(action);
+                double reward = state->takeAction(action);
 
                 float nextQMax;
                 if (!state->isTerminal()) {
                     nextQMax = -FLT_MAX;
                     for (auto& nextAction : state->getActions()) {
                         shared_ptr<QLState> newState = state->cloneQLState();
-                        newState->useAction(nextAction);
+                        newState->takeAction(nextAction);
                         float nextQ = model.predict(newState->extractFeatures());
                         if (nextQ > nextQMax) {
                             nextQMax = nextQ;
@@ -85,14 +85,14 @@ namespace ai {
                 float qVal = model.predict(features);
 
                 auto action = ::selectAction(*state, model, policy, policyModifier);
-                double reward = state->useAction(action);
+                double reward = state->takeAction(action);
 
                 float nextQMax;
                 if (!state->isTerminal()) {
                     nextQMax = -FLT_MAX;
                     for (auto& nextAction : state->getActions()) {
                         shared_ptr<SharedQLState> newState = state->cloneSharedQLState();
-                        newState->useAction(nextAction);
+                        newState->takeAction(nextAction);
                         float nextQ = model.predict(newState->extractFeatures(activeAgentId));
                         if (nextQ > nextQMax) {
                             nextQMax = nextQ;

@@ -33,7 +33,7 @@ namespace {
 
         for (auto& action : state.getActions()) {
             auto nextState = state.cloneASAState();
-            nextState->useAction(action);
+            nextState->takeAction(action);
 
             double score = -::negamax(*nextState, depth - 1).score;
             if (score > bestResult.score) bestResult = { action, score };
@@ -56,7 +56,7 @@ namespace {
         futures.reserve(actions.size());
         for (int i = 0; i < actions.size(); ++i) {
             auto nextState = state->cloneASAState();
-            nextState->useAction(actions[i]);
+            nextState->takeAction(actions[i]);
             futures.emplace_back(async(std::launch::async,
                 ::multithreadingNegamax, nextState, depth - 1));
         }
