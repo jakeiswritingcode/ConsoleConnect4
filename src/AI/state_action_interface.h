@@ -19,7 +19,6 @@ namespace ai {
 	class State {
 	public:
 		virtual std::shared_ptr<State> clone() const = 0;
-		virtual std::vector<float> extractFeatures() const = 0;
 		virtual std::vector<std::shared_ptr<Action>> getActions() const = 0;
 		virtual double useAction(std::shared_ptr<Action>) = 0; // returns reward
 		virtual bool isTerminal() const = 0;
