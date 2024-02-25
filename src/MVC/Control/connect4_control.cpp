@@ -6,7 +6,7 @@
 #include "connect4_control.h"
 #include "../Model/connect4_model.h"
 #include "../View/connect4_view.h"
-#include "../../AI/Tree Traversal/Adversarial Search Algorithms/adversarial_search_algorithms.h"
+#include "../../AI/Adversarial Search Algorithms/adversarial_search_algorithms.h"
 #include <iostream>
 #include <string>
 
@@ -68,20 +68,20 @@ namespace connect4 {
 					switch (userAction) {
 					case UserAction::reset:
 						board.reset();
-						message = "Game reset.";
 						ai = 0;
+						message = "Game reset.";
 						break;
 
 					case UserAction::aiPlayer1:
 						board.reset();
-						message = "Game reset with AI enabled as Player1.";
 						ai = 1;
+						message = "Game reset with AI enabled as Player1.";
 						break;
 
 					case UserAction::aiPlayer2:
 						board.reset();
-						message = "Game reset with AI enabled as Player2.";
 						ai = 2;
+						message = "Game reset with AI enabled as Player2.";
 						break;
 
 					case UserAction::help:

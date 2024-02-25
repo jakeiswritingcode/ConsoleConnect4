@@ -4,7 +4,7 @@
 
 
 
-#include "../../AI/Tree Traversal/asastate.h"
+#include "../../AI/Adversarial Search Algorithms/asastate.h"
 #include "../../AI/Q-Learning/qlstate.h"
 #include <bitset>
 #include <array>
@@ -18,7 +18,7 @@ namespace connect4::model {
 		Move(int x) : col(x) {}
 	};
 
-	class Board : public ai::ASAState, public ai::QLState {
+	class Board : public virtual ai::ASAState, public virtual ai::QLState {
 	public:
 		// each board is stored as a 6x7 bitset with an 8th column on the right edge
 		// to prevent wraping when bitshifting the values to detect matches and
@@ -41,8 +41,8 @@ namespace connect4::model {
 		bool isTerminal() const override;
 
 		// ASAState Methods
-		short getActivePlayerId() const override;
-		double evaluate(short maximizingPlayerId) const override;
+		short getActiveASAAgentId() const override;
+		double evaluate(short maximizingAgentId) const override;
 
 		// QLState Methods
 		std::vector<float> extractFeatures() const override;
