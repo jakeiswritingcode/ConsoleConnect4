@@ -12,6 +12,10 @@
 
 namespace ai {
 
-	void trainModel(QLState& initialState, RegressionModel& model, int episodes, float epsilon, float learningRate, float discountFactor);
-	
+	enum class Policy { EpsilonGreedy, Softmax };
+
+	void trainModel(QLState& initialState, RegressionModel& model, int episodes, Policy policy, float policyModifier, float learningRate, float discountFactor);
+
+	void trainModel(SharedQLState& initialState, RegressionModel& model, int episodes, Policy policy, float policyModifier, float learningRate, float discountFactor);
+
 }

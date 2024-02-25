@@ -23,4 +23,16 @@ namespace ai {
 		virtual ~QLState() {}
 	};
 
+	class SharedQLState : public virtual State {
+	public:
+		std::shared_ptr<SharedQLState> cloneSharedQLState() const {
+			return std::dynamic_pointer_cast<SharedQLState>(clone());
+		}
+
+		virtual short getActiveQLAgentId() const = 0;
+		virtual std::vector<float> extractFeatures(short agentId) const = 0;
+
+		virtual ~SharedQLState() {}
+	};
+
 }
