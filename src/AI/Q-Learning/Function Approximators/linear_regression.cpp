@@ -14,6 +14,8 @@ using std::vector;
 namespace ai {
 
     float LinearRegression::predict(const vector<float>& features) const {
+        if (features.size() != weights.size() - 1) throw std::logic_error("std::vector<float> of invalid size passed as features argument");
+        
         float value = 0;
 
         for (size_t i = 0; i < features.size(); ++i) {
@@ -25,7 +27,7 @@ namespace ai {
     }
 
     void LinearRegression::updateWeights(const vector<float>& features, float learningRate, float tdTarget) {
-        if (features.size() + 1 != weights.size()) throw std::logic_error("std::vector<float> of invalid size passed as features argument");
+        if (features.size()!= weights.size() - 1) throw std::logic_error("std::vector<float> of invalid size passed as features argument");
 
         float tdError = tdTarget - predict(features);
 
