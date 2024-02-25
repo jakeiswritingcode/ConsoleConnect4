@@ -113,7 +113,7 @@ namespace connect4 {
 				}
 				else {
 					auto move = ai::minimax(board, 5);
-					board.useAction(move);
+					board.takeAction(move);
 				}
 
 				winner = board.checkForWin();

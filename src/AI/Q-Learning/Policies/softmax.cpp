@@ -29,7 +29,7 @@ namespace ai {
         vector<float> probabilities(actions.size());
         for (size_t i = 0; i < actions.size(); ++i) {
             shared_ptr<QLState> newState = state.cloneQLState();
-            newState->useAction(actions[i]);
+            newState->takeAction(actions[i]);
 
             float value = model.predict(newState->extractFeatures());
             probabilities[i] = std::exp(beta * value);
@@ -47,7 +47,7 @@ namespace ai {
         vector<float> probabilities(actions.size());
         for (size_t i = 0; i < actions.size(); ++i) {
             shared_ptr<SharedQLState> newState = state.cloneSharedQLState();
-            newState->useAction(actions[i]);
+            newState->takeAction(actions[i]);
 
             float value = model.predict(newState->extractFeatures(state.getActiveQLAgentId()));
             probabilities[i] = std::exp(beta * value);

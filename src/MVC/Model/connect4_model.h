@@ -37,7 +37,7 @@ namespace connect4::model {
 		// State Methods
 		std::shared_ptr<ai::State> clone() const override;
 		std::vector<std::shared_ptr<ai::Action>> getActions() const override;
-		double useAction(std::shared_ptr<ai::Action>) override;
+		double takeAction(std::shared_ptr<ai::Action>) override;
 		bool isTerminal() const override;
 
 		// ASAState Methods

@@ -32,7 +32,7 @@ namespace connect4::model {
 		return actions;
 	}
 
-	double Board::useAction(shared_ptr<ai::Action> actionPtr) {
+	double Board::takeAction(shared_ptr<ai::Action> actionPtr) {
 		Move* movePtr = dynamic_cast<Move*>(actionPtr.get());
 		if (!movePtr) throw std::logic_error("invalid ai::Action passed as an argument");
 		Move move = *movePtr;

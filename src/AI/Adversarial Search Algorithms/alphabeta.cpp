@@ -35,7 +35,7 @@ namespace {
 
         for (auto& action : state.getActions()) {
             auto nextState = state.cloneASAState();
-            nextState->useAction(action);
+            nextState->takeAction(action);
 
             double score = ::alphaBeta(*nextState, maximizingAgentId, depth - 1, alpha, beta).score;
             if (score < bestResult.score) bestResult = { action, score };
@@ -52,7 +52,7 @@ namespace {
 
         for (auto& action : state.getActions()) {
             auto nextState = state.cloneASAState();
-            nextState->useAction(action);
+            nextState->takeAction(action);
 
             double score = ::alphaBeta(*nextState, maximizingAgentId, depth - 1, alpha, beta).score;
             if (score > bestResult.score) bestResult = { action, score };
@@ -95,7 +95,7 @@ namespace {
         futures.reserve(actions.size());
         for (int i = 0; i < actions.size(); ++i) {
             auto nextState = state->cloneASAState();
-            nextState->useAction(actions[i]);
+            nextState->takeAction(actions[i]);
             futures.emplace_back(async(std::launch::async,
                 multithreadingAlphaBeta, nextState, maximizingAgentId, depth - 1, std::ref(pVals)));
         }
@@ -120,7 +120,7 @@ namespace {
         futures.reserve(actions.size());
         for (int i = 0; i < actions.size(); ++i) {
             auto nextState = state->cloneASAState();
-            nextState->useAction(actions[i]);
+            nextState->takeAction(actions[i]);
             futures.emplace_back(async(std::launch::async,
                 multithreadingAlphaBeta, nextState, maximizingAgentId, depth - 1, std::ref(pVals)));
         }

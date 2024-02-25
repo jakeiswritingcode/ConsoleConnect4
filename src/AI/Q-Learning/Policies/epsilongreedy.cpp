@@ -43,7 +43,7 @@ namespace ai {
 
         for (auto& action : actions) {
             shared_ptr<QLState> newState = state.cloneQLState();
-            newState->useAction(action);
+            newState->takeAction(action);
             float value = model.predict(newState->extractFeatures());
 
             if (value > bestValue) {
@@ -74,7 +74,7 @@ namespace ai {
 
         for (auto& action : actions) {
             shared_ptr<SharedQLState> newState = state.cloneSharedQLState();
-            newState->useAction(action);
+            newState->takeAction(action);
             float value = model.predict(newState->extractFeatures(state.getActiveQLAgentId()));
 
             if (value > bestValue) {
