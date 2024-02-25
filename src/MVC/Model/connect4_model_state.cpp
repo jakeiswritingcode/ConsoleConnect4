@@ -37,9 +37,20 @@ namespace connect4::model {
 		if (!movePtr) throw std::logic_error("invalid ai::Action passed as an argument");
 		Move move = *movePtr;
 
+		short player = getActivePlayer();
+
 		addPiece(move.col);
 
-		return 0.0; // TODO: calculate reward
+		short winner = checkForWin();
+		if (winner == 0 || winner == -1) {
+			return -1;
+		}
+		else if (winner == player) {
+			return 100;
+		}
+		else {
+			return -100;
+		}
 	}
 
 	bool Board::isTerminal() const {
