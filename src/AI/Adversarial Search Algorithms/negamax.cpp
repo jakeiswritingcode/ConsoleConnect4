@@ -19,7 +19,7 @@ namespace {
 
     struct NegamaxResult {
         shared_ptr<ai::Action> move;
-        double moveScore;
+        double score;
     };
 
 }
@@ -27,7 +27,7 @@ namespace {
 namespace {
 
     NegamaxResult negamax(const ai::ASAState& state, int depth) {
-        if (state.isTerminal() || depth <= 0) return { nullptr, state.evaluate(state.getActivePlayerId()) };
+        if (state.isTerminal() || depth <= 0) return { nullptr, state.evaluate(state.getActiveASAAgentId()) };
 
         NegamaxResult bestResult = { nullptr, -DBL_MAX };
 
@@ -35,8 +35,8 @@ namespace {
             auto nextState = state.cloneASAState();
             nextState->useAction(action);
 
-            double score = -::negamax(*nextState, depth - 1).moveScore;
-            if (score > bestResult.moveScore) bestResult = { action, score };
+            double score = -::negamax(*nextState, depth - 1).score;
+            if (score > bestResult.score) bestResult = { action, score };
         }
 
         return bestResult;
@@ -46,23 +46,23 @@ namespace {
 
 namespace {
 
-    NegamaxResult multithreadingNegamax(const ai::ASAState& state, int depth) {
-        if (state.isTerminal() || depth <= 0) return { nullptr, state.evaluate(state.getActivePlayerId()) };
+    NegamaxResult multithreadingNegamax(shared_ptr<ai::ASAState> state, int depth) {
+        if (state->isTerminal() || depth <= 0) return { nullptr, state->evaluate(state->getActiveASAAgentId()) };
 
         NegamaxResult bestResult = { nullptr, -DBL_MAX };
 
-        auto actions = state.getActions();
+        auto actions = state->getActions();
         vector<future<NegamaxResult>> futures;
         futures.reserve(actions.size());
         for (int i = 0; i < actions.size(); ++i) {
-            auto nextState = state.cloneASAState();
+            auto nextState = state->cloneASAState();
             nextState->useAction(actions[i]);
             futures.emplace_back(async(std::launch::async,
-                ::multithreadingNegamax, *nextState, depth - 1));
+                ::multithreadingNegamax, nextState, depth - 1));
         }
         for (short i = 0; i < futures.size(); ++i) {
-            double score = -futures[i].get().moveScore;
-            if (score > bestResult.moveScore) bestResult = { actions[i], score };
+            double score = -futures[i].get().score;
+            if (score > bestResult.score) bestResult = { actions[i], score };
         }
 
         return bestResult;
@@ -77,7 +77,7 @@ namespace ai {
     }
 
     shared_ptr<Action> multithreadingNegamax(const ai::ASAState& state, int depth) {
-        return ::multithreadingNegamax(state, depth).move;
+        return ::multithreadingNegamax(state.cloneASAState(), depth).move;
     }
 
 }
