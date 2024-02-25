@@ -1,4 +1,4 @@
-// action_selection_algorithms.h
+// policies.h
 // by Jake Charles Osborne III
 #pragma once
 
@@ -13,7 +13,9 @@
 namespace ai {
 
     std::shared_ptr<Action> getEpsilonGreedyAction(const QLState&, const RegressionModel&, float epsilon = 0.1f);
+    std::shared_ptr<Action> getEpsilonGreedyAction(const SharedQLState&, const RegressionModel&, float epsilon = 0.1f);
 
     std::shared_ptr<Action> getSoftmaxAction(const QLState&, const RegressionModel&, float beta = 1.0f);
+    std::shared_ptr<Action> getSoftmaxAction(const SharedQLState&, const RegressionModel&, float beta = 1.0f);
 
 }
