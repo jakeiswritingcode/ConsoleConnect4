@@ -5,8 +5,8 @@
 
 
 #include "qlstate.h"
-#include "Policies/policies.h"
 #include "Function Approximators/function_approximators.h"
+#include "Policies/policies.h"
 
 
 
