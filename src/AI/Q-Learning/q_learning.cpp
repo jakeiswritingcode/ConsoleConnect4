@@ -49,7 +49,6 @@ namespace ai {
             shared_ptr<QLState> state = initialState.cloneQLState();
             while (!state->isTerminal()) {
                 std::vector<float> features = state->extractFeatures();
-                float qVal = model.predict(features);
 
                 shared_ptr<Action> action = ::selectAction(*state, model, policy, policyModifier);
                 double reward = state->takeAction(action);
@@ -82,7 +81,6 @@ namespace ai {
             while (!state->isTerminal()) {
                 short activeAgentId = initialState.getActiveQLAgentId();
                 std::vector<float> features = state->extractFeatures(activeAgentId);
-                float qVal = model.predict(features);
 
                 auto action = ::selectAction(*state, model, policy, policyModifier);
                 double reward = state->takeAction(action);
