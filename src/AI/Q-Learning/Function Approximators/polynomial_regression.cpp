@@ -62,29 +62,29 @@ namespace ai {
         validateFeaturesSize(features, weights);
 
         float prediction = predict(features);
-        float tdError = tdTarget - prediction;
+        float tdUpdate = learningRate * (tdTarget - prediction);
 
         int weightIndex = 0;
 
         // linear terms
         for (int i = 0; i < features.size(); ++i) {
-            weights[weightIndex++] += learningRate * tdError * features[i];
+            weights[weightIndex++] += tdUpdate * features[i];
         }
 
         // squared terms
         for (int i = 0; i < features.size(); ++i) {
-            weights[weightIndex++] += learningRate * tdError * features[i] * features[i];
+            weights[weightIndex++] += tdUpdate * features[i] * features[i];
         }
 
         // interaction terms
         for (int i = 0; i < features.size(); ++i) {
             for (int j = i + 1; j < features.size(); ++j) {
-                weights[weightIndex++] += learningRate * tdError * features[i] * features[j];
+                weights[weightIndex++] += tdUpdate * features[i] * features[j];
             }
         }
 
         // bias weight
-        weights[weightIndex] += learningRate * tdError;
+        weights[weightIndex] += tdUpdate;
     }
 
 }

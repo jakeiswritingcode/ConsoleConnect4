@@ -29,12 +29,12 @@ namespace ai {
     void LinearRegression::updateWeights(const vector<float>& features, float learningRate, float tdTarget) {
         if (features.size()!= weights.size() - 1) throw std::logic_error("std::vector<float> of invalid size passed as features argument");
 
-        float tdError = tdTarget - predict(features);
+        float tdUpdate = learningRate * (tdTarget - predict(features));
 
         for (size_t i = 0; i < features.size(); ++i) {
-            weights[i] += learningRate * tdError * features[i];
+            weights[i] += tdUpdate * features[i];
         }
-        weights.back() += learningRate * tdError;
+        weights.back() += tdUpdate; // bias term
     }
 
 }
